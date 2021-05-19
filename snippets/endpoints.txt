@@ -1,0 +1,18 @@
+==== REST ====
+CRUD    display_groups !
+CRUD    sensor_group !
+CRUD    sensors !
+CRUD    sensor_data_points !
+CRUD    timers !
+CRUD    data_points !
+CRUD    devices !
+CRU     commands !
+CRUD    settings !
+CRUD    users !
+X       data_kinds !
+CRUD    device_type !
+CRUD    condition
+
+==== SYSTEM ====
+reboot/ !
+data/<display_group:int>/<from:datetime>/<to:datetime>/?interval=60&format=(JSON/CSV/XML...) !

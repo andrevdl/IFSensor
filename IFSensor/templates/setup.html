@@ -1,0 +1,28 @@
+{% extends "bootstrap.html" %}
+
+{% block title %}Setup IFSensor{% endblock %}
+
+{% block  navigation %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#">IFSensor project</a>
+	</div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="alert alert-success" role="alert">
+  <h4 class="alert-heading">Well done!</h4>
+  <p>The installation was a success. Everything is ready to go!</p>
+  <div class="mb-3">
+	<label for="userName" class="form-label">Default user</label>
+	<input type="text" class="form-control" id="userName" value="{{ username }}" readonly>
+  </div>
+  <div class="mb-3">
+	<label for="password" class="form-label">Password (you can change it afterwards)</label>
+	<input type="text" class="form-control" id="password" value="{{ password }}" readonly>
+  </div>
+  <hr>
+  <p class="mb-0">When you are ready, then let's <a href="{{ url_for('views.home') }}" class="alert-link">go to the dashboard</a></p>
+</div>
+{% endblock %}

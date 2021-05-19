@@ -1,0 +1,20 @@
+{% if controller.get_message() != '' %}
+<div class="alert alert-info" role="alert">
+    <i class="bi bi-info-circle"></i> {{ controller.get_message() }}
+</div>
+{% endif %}
+{% if controller.get_ok() != '' %}
+<div class="alert alert-success" role="alert">
+    <i class="bi bi-check-circle"></i> {{ controller.get_ok() }}
+</div>
+{% endif %}
+{% if controller.get_warning() != '' %}
+<div class="alert alert-warning" role="alert">
+    <i class="bi bi-exclamation-triangle"></i> {{ controller.get_warning() }}
+</div>
+{% endif %}
+{% if controller.get_error() != '' %}
+<div class="alert alert-danger" role="alert">
+    <i class="bi bi-exclamation-octagon"></i> {{ controller.get_error() }}
+</div>
+{% endif %}

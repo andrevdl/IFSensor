@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Control Panel{% endblock%}
+
+{% block content %}
+<div class="row">
+    <div class="col bg-light rounded-2">
+        <!-- <div class="d-grid gap-3"> -->
+            <!-- <div class="p-2 bg-light border rounded-2">Grid item 1</div>
+            <div class="p-2 bg-light border rounded-2">Grid item 2</div>
+            <div class="p-2 bg-light border rounded-2"> -->
+                <div class="list-group">
+                    <button type="button" class="list-group-item list-group-item-action active" aria-current="true">
+                        The current button
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action">A second item</button>
+                    <button type="button" class="list-group-item list-group-item-action">A third button item</button>
+                    <button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
+                    <button type="button" class="list-group-item list-group-item-action" disabled>A disabled button item</button>
+                </div>
+            <!-- </div> -->
+          <!-- </div>    -->
+    </div>
+    <div class="col-10">
+        <div class="d-grid gap-3">
+            <div class="p-2 bg-light border rounded-2">Grid item 1</div>
+            <div class="p-2 bg-light border rounded-2">Grid item 2</div>
+            <div class="p-2 bg-light border rounded-2">
+                <div class="list-group">
+                    <button type="button" class="list-group-item list-group-item-action active" aria-current="true">
+                        The current button
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action">A second item</button>
+                    <button type="button" class="list-group-item list-group-item-action">A third button item</button>
+                    <button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
+                    <button type="button" class="list-group-item list-group-item-action" disabled>A disabled button item</button>
+                </div>
+            </div>
+          </div>       
+    </div>    
+</div>
+{% endblock%}

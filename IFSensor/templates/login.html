@@ -1,0 +1,34 @@
+{% extends "bootstrap.html" %}
+
+{% block content %}
+<div class="row justify-content-md-center">
+    <div class="col-sm-4">
+        <div class="card text-center bg-dark shadow">
+            <div class="card-body">
+                <h5 class="card-title">Sign in to IFSensor</h5>
+                <form id="login-form" action="{{ url_for('auth.login') }}" method="post" class="p-3">
+                    <div class="mb-3">
+                        <div class="input-group mb-3 has-validation">
+                            <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                            <input type="text" id="username" name="username" class="form-control {% if is_wrong %}is-invalid{% endif %}" placeholder="Username" aria-label="Username" required>
+                            <div id="usernameFeedback" class="invalid-feedback">Username or password is not correct</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Password" aria-label="Password" required>
+                        </div>
+                    </div>
+                    <div class="mb-3 form-check text-start">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">I thrust this device</label>
+                    </div>
+                    <button type="submit" form="login-form" class="btn btn-primary">Login</button>
+                </form>                
+                <div class="card-footer bg-transparent border-secondary"><a href="#" class="link-secondary">Forgot password?</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

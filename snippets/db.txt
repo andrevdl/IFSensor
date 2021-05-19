@@ -1,0 +1,113 @@
+data_kind
+ - id: int, prim
+ - name: string (temp, hum, ...)
+
+display_groups (dispaly sensors/devices as "rooms")
+ - id : int, prim
+ - group_name: string
+
+sensor_group (grouping data to getter)
+ - id : int, prim
+ - group_name: string
+ - strategy: int (mabye not usefull)
+ - diplay_group: int, ref display_groups
+ - store_interval : int (in sec -> this will be stored in sensor_data_points - 30 sec, sounds great as default)
+
+device_group (multiple device do by event the same stuff)
+ - id : int, prim
+ - group_name: string
+ - diplay_group: int, ref display_groups 
+
+sensors
+ - id : int, prim
+ - name : string
+ - sensor_type : string (like DHT22)
+ - port : int (PI port, like D4)
+ - import_interval: int ((in milli), import from sensor)
+ - export_interval: int ((in milli), export the CSV)
+ - sensor_group : int, ref sensor_group (everything belongs to a group, even if it contains only one item)
+
+sensor_data_points
+ - id : int, prim
+ - sensor_group : int, ref sensor_group ==> later over na gedacht, dit kan op sensor level of via in memory => via upload sessies |=> voeg delay parameter op, pas data intern fetchen na delay (migrate upload delays from multiple sources)
+ - measure : int, ref data_kind
+ - value : float (like 20.0C)
+ - timestamp
+ - interval (in sec)
+
+conditions
+ - id, int, prim
+ - name : string
+ - measure : int, ref data_kind
+ - operator (above, between, under, ...)
+ - value_1 : float
+ - value_2 : float
+ - scope: int (in sec, get data_points from the scope, from that the average)
+
+timers
+ - id : int, prim
+ - name : string
+ - start_time : time
+ - interval : int (in sec)
+ - last : datetime
+ - prio : int
+ - exclusive : bool (needed for maintenance, during this time no other timers are allowed and missing ones will be dismissed - wait on all running timers to finish)
+ - mode : int (start_time, interval)
+ - handler : string (Python method to call on event trigger)
+ - conditon : int, ref conditions (if NULL, always trigger, else check condition) ** ***
+ - sensor_group : int, ref sensor_group (if NULL, for all groups) * ***
+ - device_group : int, ref device_group (if NULL, for all groups) * 
+
+* both can be filled and be empty(i.e.: for maintenance, both are null)
+** (time/interval/time + conditon/interval + conditon) [general/sensor_group/device_group]
+*** condition needs a sensor group
+
+ EXAMPLE (timers)
+ - maintenance (when to start maintenance, during maintenance no sensor data will be proceed and sensor_data_points will be flushed and id be resetted (prevent id overflow))
+ - transform sensor_data_points to data_points
+ - archive data_points
+ - active devices/add commands (like open window, based on temp)
+
+data_points
+ - id : int, prim
+ - sensor_group : int, ref sensor_group
+ - measure : int, ref data_kind
+ - value : float (like 20.0C)
+ - timestamp
+ - interval
+
+device_type
+ - id : int, prim
+ - name : string
+
+devices (like the window opener)
+ - id : int, prim
+ - name : string
+ - device_type : int, ref device_type
+ - device_group : int ref device_group
+ - last_change : datetime
+ - state : int (like open or closed)
+
+commands
+ - id : int, prim
+ - device : int, ref devices
+ - device_group : int, ref device_groups *
+ - mode : int (device/group) *
+ - action : int (like open window)
+ - timestamp : datetime
+
+* group is not nil or device is not nil (based on the mode)
+
+ settings
+ - id : int, prim
+ - name : string
+ - val_float: float
+ - val_string: string
+ - datatype: int (float/string/int/path/...)
+
+users
+ - id : int, prim
+ - username : string
+ - password : string
+ - salt : string
+ - is_admin : bool
